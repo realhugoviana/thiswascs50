@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- Register
+{% endblock %}
+
+{% block main %}
+<p id="error">{{ error }}</p>
+<form action="/register-picture" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+            <h5>Choose a cute picture of yourself:</h5>
+            <input type="file" id="profile-picture" name="picture">
+    </div>
+    <button class="btn btn-primary" type="submit">Next</button>
+</form>
+{% endblock %}

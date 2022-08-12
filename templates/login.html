@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- Log In
+{% endblock %}
+
+{% block main %}
+<p id="error">{{ error }}</p>
+<form action="/login" method="post">
+    <div class="mb-3">
+        <h5>Enter your email adress:</h5>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="malan@harvard.edu" type="email">
+    </div>
+    <div class="mb-3">
+        <h5>Enter your password:</h5>
+        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Senha" type="password">
+    </div>
+    <button class="btn btn-primary" type="submit">Log In</button>
+</form>
+<div class="mb-3">
+    <a class="btn btn-link" href="/register-email" role="button">I don't have an account yet</a>
+</div>
+{% endblock %}

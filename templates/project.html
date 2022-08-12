@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- {{ project["title"] }}
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid row">
+        <p style="color: rgb(183, 183, 183); font-size: 75%; text-align: left">{{ project["date"] }}</p>
+        <div style="text-align: center; max-width: 5%">
+            <form action="/project/{{ user['id'] }}" method="post">
+                <button type="submit" name="like_button" value="like" class="btn btn-primary mb-1" style="background-color: rgb(255, 0, 85); border-style: none;">
+                    {% if liked %}
+                        <i onclick="myFunction(this)" id="like-button" class="bi bi-heart-fill"></i>
+                    {% else %}
+                        <i onclick="myFunction(this)" id="like-button" class="bi bi-heart"></i>
+                    {% endif %}
+                </button>
+            </form>
+            <small>{{ likes }}</small>
+        </div>
+        <div id="project" class="col" style="min-width: 67.5%; max-width: 67.5%">
+            <h1>{{ project["title"] }}</h1>
+            <p style="text-align: left">{{ project["description"] }}</p>
+            <iframe width="560" height="315" src="{{ project['video'] }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% if project["link"] %}
+                <h5>Link to my project:</h5>
+                <a href="{{ project['link'] }}">{{ project["link"] }}</a>
+            {% endif %}
+            <div id="comment-section" class="container">
+                <form action="/project/{{ user['id'] }}" method="post">
+                    <textarea autocomplete="off" class="mx-auto" style="width: 100%" id="comment" name="comment" placeholder="Leave a comment..." type="text"></textarea>        
+                    <div style="text-align: right;"><button class="btn btn-primary" type="submit">Leave a comment</button></div>
+                </form>
+                <ul class="list-group list-group-flush">
+                    {% for comment in comments %}
+                        <li class="list-group-item">
+                            {% if comment["firstname"] %}
+                                <h6>{{ comment["firstname"] }} {{ comment["lastname"] }} <span id="comment-date">- {{ comment["date"] }}</span></h6>
+                                {{ comment["content"] }}
+                            {% else %}
+                                <h6>Anonymous <span id="comment-date">- {{ comment["date"] }}</span></h6>
+                                {{ comment["content"] }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="creator" class="col bg-dark card" style="min-width: 27.5%; max-width: 27.5%">
+            <img src="/static/images/profile_picture.jpg" class="card-img-top" style="margin-top: 4%">
+            <div class="card-body">
+              <h5 class="card-title">{{ user["firstname"] }} {{ user["lastname"] }}</h5>
+              <p id="project-location" class="card-text disabled">{{ user["location"] }}</p>
+              <p class="card-text" style="text-align: left">{{ user["bio"] }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

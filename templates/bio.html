@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- Register
+{% endblock %}
+
+{% block main %}
+<form action="/register-bio" method="post">
+    <div class="mb-3">
+            <h5>Tell us a bit about yourself:</h5>
+            <textarea autocomplete="off" autofocus class="mx-auto w-auto" style="min-width: 30%" id="bio" name="bio" placeholder="David J. Malan is Gordon McKay Professor of the Practice of Computer Science at Harvard University in the School of Engineering and Applied Sciences as well as a Member of the Faculty of Education in the Graduate School of Education and an Executive Fellow at Harvard Business School. He teaches Computer Science 50, otherwise known as CS50, which is among Harvard University’s largest courses, one of Yale University’s largest courses, and edX’s largest MOOC, with over 3.8M registrants. He also teaches at Harvard Business School, Harvard Law School, Harvard Extension School, and Harvard Summer School. All of his courses are freely available as OpenCourseWare.
+
+            While on sabbatical, he also spends part of his time with GitHub as a Professor in Residence." type="text"></textarea>        
+    </div>
+    <button class="btn btn-primary" type="submit">Next</button>
+</form>
+{% endblock %}

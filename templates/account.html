@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- {{ user["firstname"] }} {{ user["lastname"] }}
+{% endblock %}
+
+{% block main %}
+<img src="/static/images/profile_picture.jpg" style="width: 20%">
+<div class="mb-3">
+    <h5>Email adress:</h5>
+    <p>{{ user["email"] }}</p>
+</div>
+<div class="mb-3">
+    <h5>First name:</h5>
+    <p>{{ user["firstname"] }}</p>
+</div>
+<div class="mb-3">
+    <h5>Last name:</h5>
+    <p>{{ user["lastname"] }}</p>
+</div>
+<form action="/account" method="post">
+    <div class="mb-3">
+        <h5>Location:</h5>
+        <input autocomplete="off" class="mx-auto w-auto" id="location" name="location" value="{{ user['location'] }}" type="text" style="min-width: 20%">
+    </div>
+    <div class="mb-3">
+        <h5>Bio:</h5>
+        <textarea autocomplete="off" class="mx-auto w-auto" style="min-width: 30%" id="bio" name="bio" type="text">{{ user["bio"] }}</textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- Register
+{% endblock %}
+
+{% block main %}
+<p id="error">{{ error }}</p>
+<form action="/register-email" method="post">
+    <div class="mb-3">
+        <h5>What is your email adress?</h5>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="malan@harvard.edu" type="email">
+    </div>
+    <div class="mb-3">
+        <h5>Please choose a password:</h5>
+        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Senha" type="password">
+    </div>
+    <div class="mb-3">
+        <h5>Please confirm your password:</h5>
+        <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Senha" type="password">
+    </div>
+    <button class="btn btn-primary" type="submit">Next</button>
+</form>
+{% endblock %}

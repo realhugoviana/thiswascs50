@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<form action="/" method="POST">
+    <div class="input-group mb-3" style="justify-content: center;">
+        <div class="form-outline">
+          <input type="search" id="search" name="search" class="form-control" placeholder="Search...">
+        </div>
+        <button type="button" class="btn btn-primary">
+          Search
+        </button>
+    </div>        
+</form>
+<ul class="container" style="text-align: left; list-style-type: none;">
+    {% for project in projects %}
+        <div class="mb-3">
+            <a href="/project/{{ project['id'] }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <li class="rounded row">
+                    <div class="col text-center" style="min-width: 4%">
+                        {% if project["liked"] == true %}
+                            <i class="bi bi-heart-fill"></i>
+                        {% else %}
+                            <i class="bi bi-heart"></i>
+                        {% endif %}    
+                        <small>{{ project["likes"] }}</small>
+                    </div>
+                    <div class="col" style="min-width: 96%">
+                        <p>{{ project["firstname"] }} {{ project["lastname"] }} <span style="color: rgb(183, 183, 183); font-size: 75%;"">- {{ project["location"] }} - {{ project["date"] }}</span></p>
+                        <h3>{{ project["title"] }}</h3>
+                        <p>{{ project["description"] }}</p>
+                    </div>
+                </li>
+            </a>
+        </div>
+    {% endfor %}
+</ul>
+{% endblock %}

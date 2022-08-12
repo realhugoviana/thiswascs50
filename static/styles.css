@@ -1,0 +1,29 @@
+#error {
+    color: red;
+}
+
+#creator {
+    color: whitesmoke;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+#project {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+#project-location, #comment-date {
+    color: rgb(183, 183, 183);
+    font-size: 75%;
+}
+
+#comment-section {
+    margin-top: 5%;
+    width: 100%;
+    text-align: left;
+}
+
+#like-button {
+    cursor: pointer
+}

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+- Register
+{% endblock %}
+
+{% block main %}
+<p id="error">{{ error }}</p>
+<form action="/register-project" method="post">
+    <div class="mb-3">
+        <h5>What is the title of your project?</h5>
+        <input autocomplete="off" autofocus class=" mx-auto w-auto" id="title" name="title" placeholder="title" type="text" style="min-width: 30%">
+    </div>
+    <div class="mb-3">
+        <h5>Give us a description of your project:</h5>
+        <textarea autocomplete="off" autofocus class="mx-auto w-auto" style="min-width: 30%" id="description" name="description" placeholder="Description" type="text"></textarea>
+    </div>
+    <div class="mb-3">
+        <h5>Type in the link to your project's youtube video:</h5>
+        <input class="form-control mx-auto w-auto" id="video" name="video" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="text" style="min-width: 30%">
+    </div>
+    <div class="mb-3">
+        <h5>Type in a link to your project:</h5>
+        <input class="form-control mx-auto w-auto" id="link" name="link" placeholder="https://www.thiswascs50.com" type="text" style="min-width: 30%">
+    </div>
+    <button class="btn btn-primary" type="submit">register</button>
+    <a href="/" class="btn btn-primary">Next</a>
+</form>
+{% endblock %}
