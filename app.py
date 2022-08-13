@@ -78,11 +78,11 @@ def index():
         
         searched = request.form.get("search")
 
-        projects = query_dict(f"SELECT DISTINCT * FROM projects WHERE title LIKE '%{searched}%' OR email IN(SELECT email FROM projects WHERE description LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE firstname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE lastname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE location LIKE '%{searched}%') ORDER BY likes DESC, date ASC")
+        projects = query_dict(f"SELECT DISTINCT * FROM projects WHERE title LIKE '%{searched}%' OR email IN(SELECT email FROM projects WHERE description LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE firstname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE lastname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE location LIKE '%{searched}%') ORDER BY likes DESC, date DESC")
         for project in projects:
             email = project["email"]
             user = query_dict(f"SELECT * FROM users WHERE email = '{email}'")
-            likes = query_dict(f"SELECT COUNT(*) FROM likes WHERE project_email = '{email}'")
+            likes = query_dict(f"SELECT likes FROM projects WHERE email = '{email}'")
             try:
                 browsing = session["user_id"]
                 liked = len(query_dict(f"SELECT * FROM likes WHERE user_email = '{browsing}' AND project_email = '{email}'"))
@@ -96,15 +96,15 @@ def index():
             project["lastname"] = user[0]["lastname"]
             project["location"] = user[0]["location"]
             project["id"] = user[0]["id"]
-            project["likes"] = likes[0]["COUNT(*)"]
+            project["likes"] = likes[0]["likes"]
         return render_template("index.html", projects=projects)
 
     else:
-        projects = query_dict(f"SELECT * FROM projects ORDER BY likes DESC, date ASC")
+        projects = query_dict(f"SELECT * FROM projects ORDER BY likes DESC, date DESC")
         for project in projects:
             email = project["email"]
             user = query_dict(f"SELECT * FROM users WHERE email = '{email}'")
-            likes = query_dict(f"SELECT COUNT(*) FROM likes WHERE project_email = '{email}'")
+            likes = query_dict(f"SELECT likes FROM projects WHERE email = '{email}'")
             try:
                 browsing = session["user_id"]
                 liked = len(query_dict(f"SELECT * FROM likes WHERE user_email = '{browsing}' AND project_email = '{email}'"))
@@ -120,7 +120,7 @@ def index():
             project["lastname"] = user[0]["lastname"]
             project["location"] = user[0]["location"]
             project["id"] = user[0]["id"]
-            project["likes"] = likes[0]["COUNT(*)"]
+            project["likes"] = likes[0]["likes"]
         return render_template("index.html", projects=projects)
 
 
