@@ -478,7 +478,7 @@ def project(id):
                 else:
                     db.execute("INSERT INTO likes(user_email, project_email, date) VALUES(?, ?, ?)", (like_email, project_email, date))
                 finally:
-                    db.execute("UPDATE projects SET likes = likes + 1 WHERE email = ?", (project_email))
+                    db.execute(f"UPDATE projects SET likes = likes + 1 WHERE email = '{project_email}'")
                     db.commit()
                 
                 return redirect(f"/project/{id}")
@@ -487,7 +487,7 @@ def project(id):
     else:
         project = query_dict(f"SELECT * FROM projects WHERE email = '{project_email}'")
         comments = query_dict(f"SELECT * FROM comments WHERE project_email = '{project_email}' ORDER BY date DESC")
-        likes = query_dict(f"SELECT COUNT(*) FROM likes WHERE project_email = '{project_email}'")
+        likes = query_dict(f"SELECT likes FROM projects WHERE email = '{project_email}'")
         
         with open(r'C:\Users\hugo\OneDrive\Bureau\project\static\images\profile_picture.jpg', 'wb') as file:
             file.write(user[0]["profilepicture"])
@@ -498,6 +498,6 @@ def project(id):
         
         rows = query_dict(f"SELECT * FROM likes WHERE user_email = '{like_email}' AND project_email = '{project_email}'")
         if len(rows) != 0:
-            return render_template("project.html", user=user[0], project=project[0], comments=comments, liked=True, likes=likes[0]['COUNT(*)'])
+            return render_template("project.html", user=user[0], project=project[0], comments=comments, liked=True, likes=likes[0]['likes'])
         else:
-            return render_template("project.html", user=user[0], project=project[0], comments=comments, likes=likes[0]['COUNT(*)'])
+            return render_template("project.html", user=user[0], project=project[0], comments=comments, likes=likes[0]['likes'])
