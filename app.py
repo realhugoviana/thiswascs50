@@ -78,7 +78,7 @@ def index():
         
         searched = request.form.get("search")
 
-        projects = query_dict(f"SELECT DISTINCT * FROM projects WHERE title LIKE '%{searched}%' OR email IN(SELECT email FROM projects WHERE description LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE firstname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE lastname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE location LIKE '%{searched}%')")
+        projects = query_dict(f"SELECT DISTINCT * FROM projects WHERE title LIKE '%{searched}%' OR email IN(SELECT email FROM projects WHERE description LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE firstname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE lastname LIKE '%{searched}%') OR email IN(SELECT email FROM users WHERE location LIKE '%{searched}%') ORDER BY likes DESC, date ASC")
         for project in projects:
             email = project["email"]
             user = query_dict(f"SELECT * FROM users WHERE email = '{email}'")
@@ -100,7 +100,7 @@ def index():
         return render_template("index.html", projects=projects)
 
     else:
-        projects = query_dict(f"SELECT * FROM projects")
+        projects = query_dict(f"SELECT * FROM projects ORDER BY likes DESC, date ASC")
         for project in projects:
             email = project["email"]
             user = query_dict(f"SELECT * FROM users WHERE email = '{email}'")
