@@ -11,7 +11,7 @@ import datetime
 from functools import wraps
 
 # Configure application
-application = Flask(__name__)
+app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
