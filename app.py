@@ -478,6 +478,7 @@ def project(id):
                 else:
                     db.execute("INSERT INTO likes(user_email, project_email, date) VALUES(?, ?, ?)", (like_email, project_email, date))
                 finally:
+                    db.execute("UPDATE projects SET likes = likes + 1 WHERE email = ?", (project_email))
                     db.commit()
                 
                 return redirect(f"/project/{id}")
